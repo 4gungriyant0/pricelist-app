@@ -8,6 +8,7 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
+import ProductContent from "../content/ProductContent";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -349,13 +350,13 @@ const CategoryFilter = () => {
               {/* Product grid */}
               <div
                 className="lg:col-span-3"
-                style={{
-                  width: "100%",
-                  height: "5000px",
-                  backgroundColor: "#A5EEFD",
-                }}
+                // style={{
+                //   width: "100%",
+                //   height: "5000px",
+                //   backgroundColor: "#A5EEFD",
+                // }}
               >
-                {/* Your content */}
+                <ProductContent />
               </div>
             </div>
           </section>

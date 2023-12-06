@@ -1,28 +1,33 @@
 import { Navbar, NavbarBrand, NavbarContent, Input } from "@nextui-org/react";
 import { SearchIcon } from "./SearchIcon.jsx";
+import ArmadaLogo from "./../../assets/logo/Logo_blue.png";
+// import ALogo from "./../../assets/logo/favicon/favicon.png";
 
 const HeaderComponent = () => {
   return (
     <>
       <Navbar maxWidth="xl" isBordered>
-        <NavbarContent justify="start" className="w-2/12">
+        <NavbarContent justify="start" className="w-3/12">
           <NavbarBrand>
-            <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
-              <path
-                clipRule="evenodd"
-                d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-            <p className="hidden sm:block font-bold text-inherit">ACME</p>
+            <img
+              src={ArmadaLogo}
+              alt="ArmadaLogo"
+              style={{ width: "90px" }}
+              // className="hidden md:block"
+            />
+            {/* <img
+              src={ALogo}
+              alt="ALogo"
+              style={{ width: "30px" }}
+              className="sm:hidden"
+            /> */}
           </NavbarBrand>
         </NavbarContent>
 
         <NavbarContent
           as="div"
           justify="center"
-          className="items-center w-9/12"
+          className="items-center w-8/12"
         >
           <Input
             classNames={{
