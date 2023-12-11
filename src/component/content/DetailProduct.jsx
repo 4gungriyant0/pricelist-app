@@ -1,25 +1,5 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    theme: {
-      extend: {
-        gridTemplateRows: {
-          '[auto,auto,1fr]': 'auto auto 1fr',
-        },
-      },
-    },
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 import { StarIcon } from "@heroicons/react/20/solid";
+import DescriptionProduct from "./DescriptionProduct";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -47,21 +27,6 @@ const product = {
       alt: "Model wearing plain white basic tee.",
     },
   ],
-  colors: [
-    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-  ],
-  sizes: [
-    { name: "XXS", inStock: false },
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-    { name: "XL", inStock: true },
-    { name: "2XL", inStock: true },
-    { name: "3XL", inStock: true },
-  ],
   description:
     'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
   highlights: [
@@ -86,7 +51,7 @@ export default function Example() {
         <nav aria-label="Breadcrumb">
           <ol
             role="list"
-            className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
+            className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-6xl lg:px-1"
           >
             {product.breadcrumbs.map((breadcrumb) => (
               <li key={breadcrumb.id}>
@@ -132,97 +97,104 @@ export default function Example() {
             />
           </div>
           {/* Product info */}
-          <div className="overflow-hidden rounded-lg lg:w-3/5">
+          <div className="overflow-hidden rounded-lg">
             <div className="mx-auto max-w-2xl px-4 pb-16 pt-1">
-              <div className="lg:col-span-2 lg:pr-8">
-                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                  {product.name}
-                </h1>
-              </div>
-
               {/* Options */}
-              <div className="mt-4 lg:row-span-3 lg:mt-4">
-                <h2 className="sr-only">Product information</h2>
-                <p className="text-3xl tracking-tight text-gray-900">
-                  {product.price}
-                </p>
+              <div className="lg:flex">
+                <div className="mt-2 w-full lg:w-1/2">
+                  <div className="mb-2 lg:col-span-2 lg:pr-8 lg:mb-1">
+                    <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                      {product.name}
+                    </h1>
+                  </div>
+                  <h2 className="sr-only">Product information</h2>
+                  <p className="text-3xl tracking-tight text-gray-900">
+                    {product.price}
+                  </p>
 
-                {/* Reviews */}
-                <div className="mt-6 lg:flex lg:mt-0">
-                  <h3 className="sr-only">Reviews</h3>
-                  <div className="flex items-center lg:w-1/2">
+                  {/* Reviews */}
+                  <div className="mt-4 lg:flex lg:mt-3">
+                    <h3 className="sr-only">Reviews</h3>
                     <div className="flex items-center">
-                      {[0, 1, 2, 3, 4].map((rating) => (
-                        <StarIcon
-                          key={rating}
-                          className={classNames(
-                            reviews.average > rating
-                              ? "text-gray-900"
-                              : "text-gray-200",
-                            "h-5 w-5 flex-shrink-0"
-                          )}
-                          aria-hidden="true"
-                        />
-                      ))}
+                      <div className="flex items-center">
+                        {[0, 1, 2, 3, 4].map((rating) => (
+                          <StarIcon
+                            key={rating}
+                            className={classNames(
+                              reviews.average > rating
+                                ? "text-gray-900"
+                                : "text-gray-200",
+                              "h-5 w-5 flex-shrink-0"
+                            )}
+                            aria-hidden="true"
+                          />
+                        ))}
+                      </div>
+                      <p className="sr-only">
+                        {reviews.average} out of 5 stars
+                      </p>
+                      <a
+                        href={reviews.href}
+                        className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                      >
+                        {reviews.totalCount} reviews
+                      </a>
                     </div>
-                    <p className="sr-only">{reviews.average} out of 5 stars</p>
-                    <a
-                      href={reviews.href}
-                      className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      {reviews.totalCount} reviews
-                    </a>
                   </div>
-                  <div className="flex items-center justify-center lg:w-1/2">
-                    <button
-                      type="button"
-                      className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 lg:mt-0 lg:w"
-                    >
-                      Get Now
-                    </button>
-                  </div>
+                </div>
+                <div className="flex items-center justify-center w-full lg:w-1/2">
+                  <button
+                    type="button"
+                    className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 lg:mt-0 lg:w"
+                  >
+                    Get Now
+                  </button>
                 </div>
               </div>
 
-              <div className="overflow-y-hidden py-10 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
-                {/* Description and details */}
-                <div>
-                  <h3 className="sr-only">Description</h3>
+              <DescriptionProduct>
+                <div className="overflow-y-hidden py-10 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
+                  {/* Description and details */}
+                  <div>
+                    <h3 className="sr-only">Description</h3>
 
-                  <div className="space-y-6">
-                    <p className="text-base text-gray-900">
-                      {product.description}
-                    </p>
+                    <div className="space-y-6">
+                      <p className="text-base text-gray-900">
+                        {product.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-10">
+                    <h3 className="text-sm font-medium text-gray-900">
+                      Highlights
+                    </h3>
+
+                    <div className="mt-4">
+                      <ul
+                        role="list"
+                        className="list-disc space-y-2 pl-4 text-sm"
+                      >
+                        {product.highlights.map((highlight) => (
+                          <li key={highlight} className="text-gray-400">
+                            <span className="text-gray-600">{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="mt-10">
+                    <h2 className="text-sm font-medium text-gray-900">
+                      Details
+                    </h2>
+
+                    <div className="mt-4 space-y-6">
+                      <p className="text-sm text-gray-600">{product.details}</p>
+                    </div>
                   </div>
                 </div>
-
-                <div className="mt-10">
-                  <h3 className="text-sm font-medium text-gray-900">
-                    Highlights
-                  </h3>
-
-                  <div className="mt-4">
-                    <ul
-                      role="list"
-                      className="list-disc space-y-2 pl-4 text-sm"
-                    >
-                      {product.highlights.map((highlight) => (
-                        <li key={highlight} className="text-gray-400">
-                          <span className="text-gray-600">{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-10">
-                  <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-                  <div className="mt-4 space-y-6">
-                    <p className="text-sm text-gray-600">{product.details}</p>
-                  </div>
-                </div>
-              </div>
+              </DescriptionProduct>
             </div>
           </div>
         </div>

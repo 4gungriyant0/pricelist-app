@@ -1,6 +1,7 @@
 import HeaderComponent from "./component/header/HeaderComponent";
 // import CategoryFilter from "./component/categoryfilter/CategoryFilter";
 import DetailProduct from "./component/content/DetailProduct";
+// import Collapse from "./component/content/Collapse";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <HeaderComponent />
       {/* <CategoryFilter /> */}
       <DetailProduct />
+      {/* <Collapse /> */}
     </>
   );
 }
