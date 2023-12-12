@@ -1,5 +1,6 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { StarIcon } from "@heroicons/react/20/solid";
-import DescriptionProduct from "./DescriptionProduct";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -14,21 +15,9 @@ const product = {
       src: "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
       alt: "Two each of gray, white, and black shirts laying flat.",
     },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg",
-      alt: "Model wearing plain black basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg",
-      alt: "Model wearing plain gray basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg",
-      alt: "Model wearing plain white basic tee.",
-    },
   ],
   description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
+    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
   highlights: [
     "Hand cut and sewn locally",
     "Dyed with our proprietary colors",
@@ -44,7 +33,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+const DetailProduct = () => {
+  const [isExpanded, setExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setExpanded(!isExpanded);
+  };
   return (
     <div className="bg-white">
       <div className="pt-6">
@@ -87,21 +81,22 @@ export default function Example() {
           </ol>
         </nav>
 
-        <div className="lg:flex mx-auto mt-6 max-w-6xl">
+        <div className="lg:flex mx-auto mt-4 max-w-6xl">
           {/* Image gallery */}
           <div className="sm:overflow-hidden sm:rounded-lg lg:w-2/5">
             <img
               src={product.images[0].src}
               alt={product.images[0].alt}
-              className="object-cover object-center"
+              // className="object-cover object-center"
+              style={{ width: "400px", height: "400px" }}
             />
           </div>
           {/* Product info */}
           <div className="overflow-hidden rounded-lg">
-            <div className="mx-auto max-w-2xl px-4 pb-16 pt-1">
+            <div className="mx-auto max-w-2xl px-4 pb-16 pt-0">
               {/* Options */}
               <div className="lg:flex">
-                <div className="mt-2 w-full lg:w-1/2">
+                <div className="mt-0 w-full lg:w-1/2">
                   <div className="mb-2 lg:col-span-2 lg:pr-8 lg:mb-1">
                     <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                       {product.name}
@@ -152,15 +147,27 @@ export default function Example() {
                 </div>
               </div>
 
-              <DescriptionProduct>
-                <div className="overflow-y-hidden py-10 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
+              <motion.div
+                layout
+                animate={{}}
+                transition={{
+                  duration: 0.5,
+                }}
+                className="relative"
+              >
+                <div
+                  className={`py-10 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6 transition-all duration-300 ${
+                    isExpanded ? "h-full" : "h-40 overflow-hidden lg:h-80"
+                  } transition-all duration-300`}
+                  style={{ transition: "250ms" }}
+                >
                   {/* Description and details */}
                   <div>
                     <h3 className="sr-only">Description</h3>
 
                     <div className="space-y-6">
                       <p className="text-base text-gray-900">
-                        {product.description}
+                        {product.description || ""}
                       </p>
                     </div>
                   </div>
@@ -194,11 +201,21 @@ export default function Example() {
                     </div>
                   </div>
                 </div>
-              </DescriptionProduct>
+                <button
+                  className={`1mt-4 text-blue-500 cursor-pointer absolute inset-x-0 -bottom-3 h-16 lg:-bottom-3 ${
+                    isExpanded ? "" : "-bottom-14"
+                  }`}
+                  onClick={toggleExpand}
+                >
+                  {isExpanded ? "Collapse" : "Expand"}
+                </button>
+              </motion.div>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default DetailProduct;

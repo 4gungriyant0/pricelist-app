@@ -5,18 +5,25 @@ import PropTypes from "prop-types";
 const DescriptionProduct = ({ children, maxChars = 150 }) => {
   let [expanded, setExpanded] = useState(true);
 
-  if (children.lenght <= maxChars) return <div>{children}</div>;
+  // Memeriksa apakah prop children berupa string atau bukan
+  const isString = typeof children === "string";
 
+  // Mengambil panjang teks dari children atau dari properti spesifik jika children bukan string
+  const textLength = isString ? children.length : 0;
+
+  // Menyusun teks sesuai dengan kondisi
   let text = expanded
     ? children
-    : children.length > maxChars
+    : textLength > maxChars
     ? `${children.substring(0, maxChars)} ...`
     : children;
 
+  console.log("Text Length:", textLength); // Menambahkan console log
+
   return (
     <>
-      <p>{text}</p>
-      {children.length > maxChars && (
+      <div>{text}</div>
+      {textLength > maxChars && (
         <Button size="sm" onClick={() => setExpanded(!expanded)}>
           {expanded ? "Read Less" : "Read More"}
         </Button>
@@ -26,7 +33,11 @@ const DescriptionProduct = ({ children, maxChars = 150 }) => {
 };
 
 DescriptionProduct.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
   maxChars: PropTypes.number,
 };
 
